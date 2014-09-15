@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load messages email_obfuscator %}
+
+{% block content %}
+    <!--=== Content Part ===-->
+    <div class="container content">
+
+		{% for member in staff %}
+			{% ifchanged member.department.name %}
+				<div class="headline"><h2>{{ member.department.name }}</h2></div>
+			{% endifchanged %}
+			<div class="row margin-bottom-20">
+				<div class="col-sm-2">
+					<img alt="" src="{{ STATIC_URL }}img/team/3.jpg" class="img-responsive">
+				</div>
+				<div class="col-sm-10">
+                    <h3><a>{{ member.name }}</a><br /><small>{{ member.title }}</small></h3>
+                    <p>{{ member.description }}</p>
+                    {{ member.email|obfuscate_mailto }}<br />
+                    {% if member.phone %}
+                    	Office: {{ member.phone }}<br />
+                    {% endif %}
+                    {% if member.cell %}
+	                    Cell: {{ member.cell }}<br />
+	                {% endif %}
+	            </div>
+			</div>
+		{% endfor %}
+
+    </div>	
+{% endblock content %}

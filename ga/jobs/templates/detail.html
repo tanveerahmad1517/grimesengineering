@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load email_obfuscator %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/pages/portfolio-v2.css">
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">{{ job.name|title }}</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li>Services</li>
+                <li class="active">
+                	<a href="{% url 'services:department' department_id=job.department.id department_slug=job.department.slug %}">
+                		{{ job.department.name }}
+                	</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container content">
+    	<div>
+	    	{{ job.description }}<br />
+			Job Number: {{ job.number }}<br />
+			{% if job.staff and job.staff.active %}
+				<a href="{{ job.staff.email|obfuscate_mailto }}">{{ job.staff.name }}</a>
+			{% endif %}
+		</div>
+		
+		{# JOB DOCUMENTS #}
+		{% if job.documents.all %}
+			<div class="shadow-wrapper margin-bottom-30">
+				<div class="tag-box tag-box-v1 box-shadow shadow-effect-2">
+				
+					<h3>{{ job.status.name }} Documents</h3>
+					{% if not logged_in %}
+						<div class="row">
+							<div class="col-md-3">
+								Provide your name and email to download documents. 
+								<br/>
+								You will automatically be nofified when new documents are added to this job.
+							</div>
+							<div class="col-md-6">
+								<form method="post" action="">
+									{% csrf_token %}
+									{{ login_form.as_p }}
+									<button type="submit" class="btn-u">Submit</button>
+				                </form>
+				       		</div>
+				       	</div>
+					{% else %}
+						<ul>
+							{% for document in job.documents.all %}
+								{% if document.type == job.status %}
+									<li>
+										<a class="download_document" data-document="{{ document.id }}" href="{{ MEDIA_URL }}{{ document.document }}">
+											{% if document.description %}
+												{{ document.description }}
+											{% else %}
+												{{ document.filename }}
+											{% endif %}
+										</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+			</div>
+		{% endif %}
+		
+		{# JOB IMAGES #}
+        <div class="sorting-block">
+			{% if job.images %}
+			     <ul class="row sorting-grid">
+			     	{% for image in job.images.all %}
+			          <li class="col-md-3 col-sm-6 col-xs-12">
+			              <a href="#">
+			                  <img class="img-responsive" src="{{ MEDIA_URL }}{{ image.image }}" alt="">
+			                  <span class="sorting-cover">
+			                 		{% if image.description %}{{ image.description }}{% endif %}
+			                  </span>
+			              </a>
+			          </li>
+			      {% endfor %}
+			     </ul>
+			{% endif %}
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock content %}

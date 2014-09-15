@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load email_obfuscator %}
+
+{% block content %}
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">{{ department.name|title }}</h1>
+        </div>
+    </div>
+
+    <div class="container content">		
+        <div class="row service-v1 margin-bottom-40">
+        	<div class="col-md-12 md-margin-bottom-40">
+        		{{ department.description|safe }}
+        	</div>
+        </div>
+        
+        <h2>Completed Projects</h2>
+        <div class="row service-v1 margin-bottom-40">
+        	{% for job in jobs %}
+	            <div class="col-md-4 md-margin-bottom-40">
+	            	{% if job.image %}
+	                	<img class="img-responsive" src="{{ MEDIA_URL}}{{ job.image }}" alt="">
+	                {% else %}
+	                	{# put default image here #}
+	                {% endif %}   
+	                <h2>{{ job.name }}</h2>
+                	<p>{{ job.description }}</p>
+                	{% if job.images %}
+                		<a href="{% url 'job:detail' job_id=job.id job_slug=job.slug %}">more images</a>
+                	{% endif %}     
+	            </div>
+	        {% endfor %}
+        </div>
+
+    </div>
+{% endblock content %}

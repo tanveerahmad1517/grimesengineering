@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load email_obfuscator %}
+
+{% block content %}
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">{{ "Clients" }}</h1>
+        </div>
+    </div>
+
+    <!--=== Content Part ===-->
+    <div class="container content">		
+        <div class="row service-v1 margin-bottom-40">
+        	<div class="col-md-12 md-margin-bottom-40">
+        		Grimes & Associates clients blah blah blah blah.
+        	</div>
+        </div>
+        
+        <h2 style="border-bottom:2px solid #E74C3C;">Client List</h2>
+        <ul class="row service-v1 list-unstyled">
+        	{% for client in clients %}
+	            <li class="col-md-2" style="font-size:14px;">
+	                {{ client.name }}
+	            </li>
+	        {% endfor %}
+        </ul>
+
+        <hr class="margin-bottom-50">
+
+        <h2>Testimonials</h2>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="funny-boxes funny-boxes-top-sea" style="border-top:2px solid #E74C3C;">
+                    <div class="row">
+                        <div class="col-md-12 funny-boxes-img">
+                            <img alt="" src="{{ STATIC_URL }}img/new/img10.jpg" class="img-responsive">
+                            <ul class="list-unstyled">
+								<li><h2>Person Name</h2></li>
+								<li><i class="fa fa-briefcase"></i> Dell, Google</li>
+								<li><i class="fa fa-map-marker"></i> New York, US</li>
+                            </ul>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum.</p>
+                        </div>
+                    </div>                            
+                </div>
+            </div>
+            
+            <div class="col-md-5 col-md-offset-1">
+                <div class="funny-boxes funny-boxes-top-sea" style="border-top:2px solid #E74C3C;">
+                    <div class="row">
+                        <div class="col-md-4 funny-boxes-img">
+                            <img alt="" src="{{ STATIC_URL }}img/new/img10.jpg" class="img-responsive">
+                            <ul class="list-unstyled">
+                               <li><i class="fa fa-briefcase"></i> Dell, Google</li>
+                               <li><i class="fa fa-map-marker"></i> New York, US</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8">
+                            <h2><a href="#">Person Name</a></h2>
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum.</p>
+                        </div>
+                    </div>                            
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,453 @@
+{% load messages email_obfuscator %}
+{% spaceless %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title></title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/flexslider/flexslider.css">  
+    <link rel="stylesheet" href="{{ STATIC_URL }}plugins/parallax-slider/css/parallax-slider.css">
+
+    <!-- CSS Theme -->    
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/themes/default.css" id="style_color">
+
+</head>	
+
+<body>
+	<div class="wrapper">
+	    {% block header %}   
+		    <div class="header">
+		        <!-- Topbar -->
+		        <div class="topbar">
+		            <div class="container">
+		            </div>
+		        </div>
+		        <!-- End Topbar -->
+		    
+		        <!-- Navbar -->
+		        <div class="navbar navbar-default" role="navigation">
+		            <div class="container">
+		                <!-- Brand and toggle get grouped for better mobile display -->
+		                <div class="navbar-header">
+		                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+		                        <span class="sr-only">Toggle navigation</span>
+		                        <span class="fa fa-bars"></span>
+		                    </button>
+		                    <a class="navbar-brand" href="index.html">
+		                        <img id="logo-header" src="{{ STATIC_URL }}img/grimes_logo.png" alt="Logo">
+		                    </a>
+		                </div>
+		
+		                <!-- Collect the nav links, forms, and other content for toggling -->
+		                <div class="collapse navbar-collapse navbar-responsive-collapse">
+		                    <ul class="nav navbar-nav">
+		                        <li class="{% if nav_selected = 'home' %} active{% endif %}">
+		                            <a href="/">
+		                                Home
+		                            </a>
+		                        </li>
+		
+		                        <li class="dropdown{% if nav_selected = 'about' %} active{% endif %}">
+		                            <a href="{% url 'about:index' %}" class="dropdown-toggle" data-toggle="dropdown">
+		                                About
+		                            </a>
+		                            <ul class="dropdown-menu">
+		                                <li><a href="{% url 'about:index' %}">About Us</a></li>
+		                                <li><a href="{% url 'about:team' %}">Meet Our Team</a></li>
+		                            </ul>
+		                        </li>
+		                        
+		                        {% if AVAILABLE_DOCUMENTS %}
+									<li class="dropdown">
+										<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+											Documents
+										</a>
+										<ul class="dropdown-menu">
+											{% for job in AVAILABLE_DOCUMENTS %}
+												<li>
+													<a href="{% url 'job:detail' job_id=job.id job_slug=job.slug %}">
+														{{ job.name }}
+													</a>
+												</li>
+											{% endfor %}
+										</ul>
+									</li>
+								{% endif %}
+								
+								<li class="dropdown{% if nav_selected = 'services' %} active{% endif %}">
+		                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+		                                Services
+		                            </a>
+		                            <ul class="dropdown-menu">
+		                            	{% for department in DEPARTMENT_TREE %}
+			                            	<li class="{% if department.leaves %}dropdown-submenu{% endif %}">
+			                                    <a href="{% url 'services:department' department_id=department.id department_slug=department.name|slugify %}">{{ department.name }}</a>
+			                                    <ul class="dropdown-menu">
+				                                    {% for leaf in department.leaves %}
+		                                       			<li>
+		                                       				<a href="{% url 'services:department' department_id=leaf.id department_slug=leaf.name|slugify %}">
+		                                       					{{ leaf.name }}
+		                                       				</a>
+		                                       			</li>
+			                                       	{% endfor %}
+			                                    </ul>
+		                                     </li>
+			                            {% endfor %}
+		                            </ul>
+		                        </li>
+		
+		                        <li class="{% if nav_selected = 'clients' %} active{% endif %}">
+		                            <a href="{% url 'clients' %}">
+		                                Clients
+		                            </a>
+		                        </li>
+		
+		                        <li class="{% if nav_selected = 'contact' %} active{% endif %}">
+		                            <a href="{% url 'contact' %}">
+		                                Contact
+		                            </a>
+		                        </li>  
+		                        
+		                    </ul>
+		                </div>
+		            </div>    
+		        </div>            
+		        <!-- End Navbar -->
+		    </div>
+	    {% endblock header %}
+	
+		{% block content %}
+		    <!--=== Slider ===-->
+		    <div class="slider-inner">
+		        <div id="da-slider" class="da-slider">
+		            <div class="da-slide">
+		                <h2><i>CLEAN &amp; FRESH</i> <br /> <i>FULLY RESPONSIVE</i> <br /> <i>DESIGN</i></h2>
+		                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+		                <div class="da-img"><img class="img-responsive" src="{{ STATIC_URL }}plugins/parallax-slider/img/1.png" alt=""></div>
+		            </div>
+		            <div class="da-slide">
+		                <h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
+		                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i></p>
+		                <div class="da-img">
+		    				<iframe src="http://player.vimeo.com/video/47911018" width="530" height="300" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
+		                </div>
+		            </div>
+		            <div class="da-slide">
+		                <h2><i>USING BEST WEB</i> <br /> <i>SOLUTIONS WITH</i> <br /> <i>HTML5/CSS3</i></h2>
+		                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+		                <div class="da-img"><img src="{{ STATIC_URL }}plugins/parallax-slider/img/html5andcss3.png" alt="image01" /></div>
+		            </div>
+		            <div class="da-arrows">
+		                <span class="da-arrows-prev"></span>
+		                <span class="da-arrows-next"></span>		
+		            </div>
+		        </div>
+		    </div><!--/slider-->
+		    <!--=== End Slider ===-->
+		
+	
+	    
+		    <div class="container content">	
+		    	<!-- Service Blocks -->
+		    	<div class="row margin-bottom-30">
+		        	<div class="col-md-4">
+		        		<div class="service">
+		                    <i class="fa fa-compress service-icon"></i>
+		        			<div class="desc">
+		        				<h4>Fully Responsive</h4>
+		                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+		        			</div>
+		        		</div>	
+		        	</div>
+		        	<div class="col-md-4">
+		        		<div class="service">
+		                    <i class="fa fa-cogs service-icon"></i>
+		        			<div class="desc">
+		        				<h4>HTML5 + CSS3</h4>
+		                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+		        			</div>
+		        		</div>	
+		        	</div>
+		        	<div class="col-md-4">
+		        		<div class="service">
+		                    <i class="fa fa-rocket service-icon"></i>
+		        			<div class="desc">
+		        				<h4>Launch Ready</h4>
+		                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+		        			</div>
+		        		</div>	
+		        	</div>			    
+		    	</div>
+		    	<!-- End Service Blokcs -->
+		
+		    	<!-- Recent Works -->
+		        <div class="headline"><h2>Recent Works</h2></div>
+		        <div class="row margin-bottom-20">
+		            <div class="col-md-3 col-sm-6">
+		                <div class="thumbnails thumbnail-style thumbnail-kenburn">
+		                	<div class="thumbnail-img">
+		                        <div class="overflow-hidden">
+		                            <img class="img-responsive" src="{{ STATIC_URL }}img/main/2.jpg" alt="">
+		                        </div>
+		                        <a class="btn-more hover-effect" href="#">read more +</a>					
+		                    </div>
+		                    <div class="caption">
+		                        <h3><a class="hover-effect" href="#">Project One</a></h3>
+		                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem.</p>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-md-3 col-sm-6">
+		                <div class="thumbnails thumbnail-style thumbnail-kenburn">
+		                    <div class="thumbnail-img">
+		                        <div class="overflow-hidden">
+		                            <img class="img-responsive" src="{{ STATIC_URL }}img/main/3.jpg" alt="">
+		                        </div>
+		                        <a class="btn-more hover-effect" href="#">read more +</a>                   
+		                    </div>
+		                    <div class="caption">
+		                        <h3><a class="hover-effect" href="#">Project Two</a></h3>
+		                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem.</p>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-md-3 col-sm-6">
+		                <div class="thumbnails thumbnail-style thumbnail-kenburn">
+		                    <div class="thumbnail-img">
+		                        <div class="overflow-hidden">
+		                            <img class="img-responsive" src="{{ STATIC_URL }}img/main/9.jpg" alt="">
+		                        </div>
+		                        <a class="btn-more hover-effect" href="#">read more +</a>                   
+		                    </div>
+		                    <div class="caption">
+		                        <h3><a class="hover-effect" href="#">Project Three</a></h3>
+		                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem.</p>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-md-3 col-sm-6">
+		                <div class="thumbnails thumbnail-style thumbnail-kenburn">
+		                    <div class="thumbnail-img">
+		                        <div class="overflow-hidden">
+		                            <img class="img-responsive" src="{{ STATIC_URL }}img/main/10.jpg" alt="">
+		                        </div>
+		                        <a class="btn-more hover-effect" href="#">read more +</a>                   
+		                    </div>
+		                    <div class="caption">
+		                        <h3><a class="hover-effect" href="#">Project Four</a></h3>
+		                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem.</p>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    	<!-- End Recent Works -->
+		
+		    	<!-- Info Blokcs -->
+		    	<div class="row margin-bottom-30">
+		        	<!-- Welcome Block -->
+		    		<div class="col-md-8 md-margin-bottom-40">
+		    			<div class="headline"><h2>Welcome To Unify</h2></div>
+		                <div class="row">
+		                    <div class="col-sm-4">
+		                        <img class="img-responsive margin-bottom-20" src="{{ STATIC_URL }}img/main/6.jpg" alt="">
+		                    </div>
+		                    <div class="col-sm-8">
+		                        <p>Unify is an incredibly beautiful responsive Bootstrap Template for corporate and creative professionals. It works on all major web browsers, tablets and phone.</p>
+		                        <ul class="list-unstyled margin-bottom-20">
+		                            <li><i class="fa fa-check color-green"></i> Donec id elit non mi porta gravida</li>
+		                            <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
+		                            <li><i class="fa fa-check color-green"></i> Responsive Bootstrap Template</li>
+		                            <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
+		                        </ul>                    
+		                    </div>
+		                </div>
+		
+		                <blockquote class="hero-unify">
+		                    <p>Award winning digital agency. We bring a personal and effective approach to every project we work on, which is why. Unify is an incredibly beautiful responsive Bootstrap Template for corporate professionals.</p>
+		                    <small>CEO, Jack Bour</small>
+		                </blockquote>
+		            </div><!--/col-md-8-->        
+		
+		            <!-- Latest Shots -->
+		            <div class="col-md-4">
+		    			<div class="headline"><h2>Latest Shots</h2></div>
+		    			<div id="myCarousel" class="carousel slide carousel-v1">
+		                    <div class="carousel-inner">
+		                        <div class="item active">
+		                            <img src="{{ STATIC_URL }}img/main/5.jpg" alt="">
+		                            <div class="carousel-caption">
+		                                <p>Facilisis odio, dapibus ac justo acilisis gestinas.</p>
+		                            </div>
+		                        </div>
+		                        <div class="item">
+		                            <img src="{{ STATIC_URL }}img/main/4.jpg" alt="">
+		                            <div class="carousel-caption">
+		                                <p>Cras justo odio, dapibus ac facilisis into egestas.</p>
+		                            </div>
+		                            </div>
+		                        <div class="item">
+		                            <img src="{{ STATIC_URL }}img/main/3.jpg" alt="">
+		                            <div class="carousel-caption">
+		                                <p>Justo cras odio apibus ac afilisis lingestas de.</p>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    
+		                    <div class="carousel-arrow">
+		                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+		                            <i class="fa fa-angle-left"></i>
+		                        </a>
+		                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+		                            <i class="fa fa-angle-right"></i>
+		                        </a>
+		                    </div>
+		    			</div>
+		            </div><!--/col-md-4-->
+		    	</div>	
+		    	<!-- End Info Blokcs -->
+		
+		    </div><!--/container-->		
+		    <!-- End Content Part -->
+		{% endblock content %}
+		
+		{% block footer %}
+		    <div class="footer">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-md-4 md-margin-bottom-40">
+		                    <!-- About -->
+		                    <div class="headline"><h2>About</h2></div>  
+		                    <p class="margin-bottom-25 md-margin-bottom-40">Grimes and Associates, Consulting Engineers, L.P. is a full service professional architecture, engineering, and environmental firm providing technical services for building owners throughout the Midwestern and Southwestern United States.</p>    
+		                    <!-- End About -->
+		                </div> 
+		                
+		                <div class="col-md-4 md-margin-bottom-40">
+		                    <!-- Recent Blogs -->
+		                    <div class="posts">
+		                        <div class="headline"><h2>Recent Blog Entries</h2></div>
+		                        <dl class="dl-horizontal">
+		                            <dt><a href="#"><img src="{{ STATIC_URL }}img/sliders/elastislide/6.jpg" alt=""></a></dt>
+		                            <dd>
+		                                <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p> 
+		                            </dd>
+		                        </dl>
+		                        <dl class="dl-horizontal">
+		                        <dt><a href="#"><img src="{{ STATIC_URL }}img/sliders/elastislide/10.jpg" alt=""></a></dt>
+		                            <dd>
+		                                <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p> 
+		                            </dd>
+		                        </dl>
+		                        <dl class="dl-horizontal">
+		                        <dt><a href="#"><img src="{{ STATIC_URL }}img/sliders/elastislide/11.jpg" alt=""></a></dt>
+		                            <dd>
+		                                <p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p> 
+		                            </dd>
+		                        </dl>
+		                    </div>
+		                    <!-- End Recent Blogs -->                    
+		                </div><!--/col-md-4-->
+		
+		                <div class="col-md-4">
+		                    <!-- Contact Us -->
+		                    <div class="headline"><h2>Contact Us</h2></div> 
+		                    <address class="md-margin-bottom-40">
+		                    	<b>Lubbock Area</b><br />
+		                        21103 FM 179 <br />
+		                        Wolfforth, Texas 79382 <br />
+		                        Phone: 806-863-2462  <br />
+		                        <br />
+		                        <b>Amarillo Area</b><br />
+		                        7210 W. I-40, Suite 119 <br />
+		                        Amarillo, Texas 79106 <br />
+		                        Phone: 806-353-7588  <br />
+		                        <br />
+		                        Email: {{ "grimes@grimesengineering.com"|obfuscate_mailto }}
+		                    </address>
+		                    <!-- End Contact Us -->
+		
+		                </div><!--/col-md-4-->
+		            </div>
+		        </div> 
+		    </div><!--/footer-->
+		    <!--=== End Footer ===-->
+		
+		    <!--=== Copyright ===-->
+		    <div class="copyright">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-md-6">                     
+		                    <p>
+		                        {% now "Y" %} &copy; Grimes & Associates. All Rights Reserved. 
+		                    </p>
+		                </div>
+		                <div class="col-md-6">  
+		                    <a href="index.html">
+		                        <img class="pull-right" id="logo-footer" src="{{ STATIC_URL }}img/grimes_logo.png" alt="">
+		                    </a>
+		                </div>
+		            </div>
+		        </div> 
+		    </div><!--/copyright--> 
+		    <!--=== End Copyright ===-->
+	    {% endblock footer %}
+	</div>
+	
+	<!-- JS Global Compulsory -->			
+	<script type="text/javascript" src="{{ STATIC_URL }}plugins/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}plugins/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!-- JS Implementing Plugins -->
+	<script type="text/javascript" src="{{ STATIC_URL }}plugins/flexslider/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}plugins/parallax-slider/js/modernizr.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}plugins/parallax-slider/js/jquery.cslider.js"></script>
+	<!-- JS Page Level -->           
+	<script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/pages/index.js"></script>
+	<script type="text/javascript">
+	    jQuery(document).ready(function() {
+	      	App.init();
+	        App.initSliders();
+	        Index.initParallaxSlider();        
+	    });
+	</script>
+	<!--[if lt IE 9]>
+	    <script src="{{ STATIC_URL }}plugins/respond.js"></script>
+	    <script src="{{ STATIC_URL }}plugins/html5shiv.js"></script>    
+	<![endif]-->
+	
+	<script type="text/javascript">
+    	$('.download_document').click(function(){
+    	    $.ajax({
+    	        url: "{% url 'job:log_download' %}?doc=" + $(this).data('document'),
+    	        success: function(data) {
+    	            alert(data);
+    	        },
+    	        failure: function(data) { 
+    	            alert('Got an error dude');
+    	        }
+    	    });    		
+    	})
+    </script>
+
+</body>
+</html>
+{% endspaceless %}
