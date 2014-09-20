@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response, render
 from django.template.context import Context, RequestContext
 from django.http.response import HttpResponseRedirect
-from ga.jobs.models import Client
+from ga.jobs.models import Client, Job
 from django.views.generic.base import TemplateView
 from ga.forms import ContactForm
 
@@ -11,8 +11,16 @@ from ga.forms import ContactForm
 #===============================================================================
 # @cache_page(60 * 15)
 def index(request):
+    
+    recent_jobs = Job.objects.filter(
+        status__name='Completed', 
+        display=True, 
+        image__isnull = False
+    ).order_by('-date')[:4]
+    
     context = {
         'nav_selected': 'home',
+        'recent_jobs': recent_jobs,
     }
     return render_to_response(
         template_name = 'index.html',
@@ -32,6 +40,7 @@ def clientlist(request):
     context = {
         'nav_selected': 'clients',
         'clients': clients,
+        'description': 'Grimes & Associates has served thousands of clients in our 40 year history.'
     }
     return render_to_response(
         template_name = 'clientlist.html',

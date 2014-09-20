@@ -18,6 +18,9 @@ DATABASES = {'default': dj_database_url.config()}
 # heroku config:add MEMBER_PASSWORD=my-secret-password
 MEMBER_PASSWORD = os.environ.get('MEMBER_PASSWORD')
 
+# heroku config:add SECRET_KEY=my-secret-password
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 ## OVERRIDE ABOVE HEROKU VALUES WITH CONSTANTS FROM local_settings.py FOR LOCAL DEVELOPMENT
 try:
     from local_settings import *  # @UnusedWildImport
@@ -30,9 +33,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-# heroku config:add SECRET_KEY=my-secret-password
-SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # heroku config:add MEMBER_PASSWORD=my-secret-password
 MEMBER_PASSWORD = os.environ.get('MEMBER_PASSWORD')

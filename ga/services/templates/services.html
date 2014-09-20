@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load email_obfuscator %}
 
-{% block content %}
+{% block title %}{{ department.name|title }} - Grimes & Associates{% endblock title %}
+{% block metadesc %}{{ department.description|striptags }}{% endblock metadesc %}
 
+{% block content %}
     <div class="breadcrumbs">
         <div class="container">
             <h1 class="pull-left">{{ department.name|title }}</h1>
@@ -33,6 +35,5 @@
 	            </div>
 	        {% endfor %}
         </div>
-
     </div>
 {% endblock content %}

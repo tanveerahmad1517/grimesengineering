@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% load email_obfuscator %}
 
-{% block content %}
+{% block title %}Client List - Grimes & Associates{% endblock title %}
+{% block metadesc %}{{ description }}{% endblock metadesc %}
 
+{% block content %}
     <div class="breadcrumbs">
         <div class="container">
             <h1 class="pull-left">{{ "Clients" }}</h1>
         </div>
     </div>
 
-    <!--=== Content Part ===-->
     <div class="container content">		
         <div class="row service-v1 margin-bottom-40">
         	<div class="col-md-12 md-margin-bottom-40">
-        		Grimes & Associates clients blah blah blah blah.
+        		{{ description }}
         	</div>
         </div>
         
@@ -34,7 +35,10 @@
                 <div class="funny-boxes funny-boxes-top-sea" style="border-top:2px solid #E74C3C;">
                     <div class="row">
                         <div class="col-md-12 funny-boxes-img">
-                            <img alt="" src="{{ STATIC_URL }}img/new/img10.jpg" class="img-responsive">
+                        	<video width="320" height="240" controls>
+								<source src="{{ MEDIA_URL }}V0.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video> 
                             <ul class="list-unstyled">
 								<li><h2>Person Name</h2></li>
 								<li><i class="fa fa-briefcase"></i> Dell, Google</li>
