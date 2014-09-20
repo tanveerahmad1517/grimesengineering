@@ -4,6 +4,8 @@ from django.http.response import HttpResponseRedirect
 from ga.jobs.models import Client, Job
 from django.views.generic.base import TemplateView
 from ga.forms import ContactForm
+from ga.services.models import Department
+from django.contrib import messages
 
 
 #===============================================================================
@@ -18,9 +20,14 @@ def index(request):
         image__isnull = False
     ).order_by('-date')[:4]
     
+    departments = Department.objects.filter(
+        name__in = ['Environmental','Engineering','Architecture']
+    ).order_by('name')[:3]
+    
     context = {
         'nav_selected': 'home',
         'recent_jobs': recent_jobs,
+        'departments': departments,
     }
     return render_to_response(
         template_name = 'index.html',
@@ -63,11 +70,12 @@ class Contact(TemplateView):
         }
         
         if form.is_valid():
-            new_contact = form.save()
-
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            msg = form.cleaned_data['message']
             ## SEND AN EMAIL TO THE MEMBERSHIP DIRECTOR rwchamp1
 #             postmark_email('SMC - New Member Signup', 'rwchamp1@gmail.com', new_member.full_info(cr='\n'), 'new member')
-            context['success'] = True
+            messages.success(request, 'Your message has been sent')
 
         return render(request, self.template_name, context)
     

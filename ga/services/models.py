@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 from tinymce.models import HTMLField
+from django.core.urlresolvers import reverse
 
 class DepartmentManager(models.Manager):
     #===========================================================================
@@ -27,5 +28,25 @@ class Department(models.Model):
         return self.name
     
     @property
+    def icon(self):
+        if self.name.lower() == 'environmental':
+            return 'leaf'
+        if self.name.lower() == 'engineering':
+            return 'cogs'
+        if self.name.lower() == 'architecture':
+            return 'university'
+        return None
+    
+    @property
     def slug(self):
         return slugify(self.name)
+    
+    @property
+    def url(self):
+        return reverse(
+            'services:department', 
+            kwargs = {
+                'department_id': self.id, 
+                'department_slug': self.slug,
+            }
+        )

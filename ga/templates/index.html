@@ -12,7 +12,10 @@
 				<h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
 				<p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i></p>
 				<div class="da-img">
-					<iframe src="http://player.vimeo.com/video/47911018" width="530" height="300" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
+					<video width="534" height="300" controls>
+						<source src="{{ MEDIA_URL }}media/V0.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>  
 				</div>
 			</div>
 			<div class="da-slide">
@@ -31,33 +34,20 @@
 
 	<div class="container content">	
 		<div class="row margin-bottom-30">
-			<div class="col-md-4">
-				<div class="service">
-					<i class="fa fa-compress service-icon"></i>
-					<div class="desc">
-						<h4>Fully Responsive</h4>
-			  			<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
-					</div>
-				</div>	
-			</div>
-			<div class="col-md-4">
-				<div class="service">
-				  	<i class="fa fa-cogs service-icon"></i>
-					<div class="desc">
-						<h4>HTML5 + CSS3</h4>
-			  			<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
-					</div>
-				</div>	
-			</div>
-			<div class="col-md-4">
-				<div class="service">
-					<i class="fa fa-rocket service-icon"></i>
-					<div class="desc">
-						<h4>Launch Ready</h4>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
-					</div>
-				</div>	
-			</div>			
+			{% for department in departments %}
+		
+				<div class="col-md-4">
+					<div class="service">
+						<a href="{{ department.url }}">
+							<i class="fa fa-{{department.icon}} service-icon"></i>
+							<div class="desc">
+								<h4>{{ department.name }}</h4>
+					  			<p>{{ department.description }}</p>
+							</div>
+						</a>
+					</div>	
+				</div>
+			{% endfor %}
 		</div>
 
 		{% if recent_jobs %}

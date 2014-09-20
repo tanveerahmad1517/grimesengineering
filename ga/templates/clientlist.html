@@ -18,57 +18,53 @@
         	</div>
         </div>
         
-        <h2 style="border-bottom:2px solid #E74C3C;">Client List</h2>
-        <ul class="row service-v1 list-unstyled">
-        	{% for client in clients %}
-	            <li class="col-md-2" style="font-size:14px;">
-	                {{ client.name }}
-	            </li>
-	        {% endfor %}
-        </ul>
-
-        <hr class="margin-bottom-50">
-
-        <h2>Testimonials</h2>
         <div class="row">
-            <div class="col-md-5">
-                <div class="funny-boxes funny-boxes-top-sea" style="border-top:2px solid #E74C3C;">
+        	<div class="col-md-6">
+        		<h2 style="border-bottom:2px solid #E74C3C;">Client List</h2>
+		        <ul class="row service-v1 list-unstyled">
+		        	{% for client in clients %}
+			            <li class="col-md-4" style="font-size:14px;">
+			                {{ client.name }}
+			            </li>
+			        {% endfor %}
+		        </ul>
+        	</div>
+        	<div class="col-md-6">
+        		<h2 style="border-bottom:2px solid #E74C3C;">Testimonials</h2>
+                <div class="funny-boxes">
                     <div class="row">
                         <div class="col-md-12 funny-boxes-img">
-                        	<video width="320" height="240" controls>
-								<source src="{{ MEDIA_URL }}V0.mp4" type="video/mp4">
+                        	<video width="534" height="399" controls>
+								<source src="{{ MEDIA_URL }}media/V1.mp4" type="video/mp4">
 								Your browser does not support the video tag.
 							</video> 
                             <ul class="list-unstyled">
-								<li><h2>Person Name</h2></li>
-								<li><i class="fa fa-briefcase"></i> Dell, Google</li>
-								<li><i class="fa fa-map-marker"></i> New York, US</li>
+								<li><h2>Berhl Robertson Ed.D.</h2></li>
+								<li><i class="fa fa-briefcase"></i>Superintendent - Lubbock ISD</li>
+								<li><i class="fa fa-map-marker"></i>Lubbock, Texas</li>
                             </ul>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum.</p>
+                            <p>LSKDjfdlafkj</p>
                         </div>
                     </div>                            
                 </div>
-            </div>
-            
-            <div class="col-md-5 col-md-offset-1">
-                <div class="funny-boxes funny-boxes-top-sea" style="border-top:2px solid #E74C3C;">
+                
+                <div class="funny-boxes">
                     <div class="row">
-                        <div class="col-md-4 funny-boxes-img">
-                            <img alt="" src="{{ STATIC_URL }}img/new/img10.jpg" class="img-responsive">
+                        <div class="col-md-12 funny-boxes-img">
+                        	<video width="534" height="399" controls>
+								<source src="{{ MEDIA_URL }}media/V2.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video> 
                             <ul class="list-unstyled">
-                               <li><i class="fa fa-briefcase"></i> Dell, Google</li>
-                               <li><i class="fa fa-map-marker"></i> New York, US</li>
+								<li><h2>Jerry Vaughn</h2></li>
+								<li><i class="fa fa-briefcase"></i>Superintendent - Floydada ISD</li>
+								<li><i class="fa fa-map-marker"></i>Floydada, Texas</li>
                             </ul>
-                        </div>
-                        <div class="col-md-8">
-                            <h2><a href="#">Person Name</a></h2>
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum.</p>
+                            <p>LSKDjfdlafkj</p>
                         </div>
                     </div>                            
                 </div>
-            </div>
-            
+        	</div>
         </div>
-
     </div>
 {% endblock content %}

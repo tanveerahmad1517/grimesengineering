@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load email_obfuscator %}
+{% load messages email_obfuscator %}
 
 {% block content %}
 
@@ -19,10 +19,10 @@
     <!--=== Content Part ===-->
     <div class="container content">     
         <div class="row margin-bottom-30">
-            <div class="col-md-9 mb-margin-bottom-30">
+            <div class="col-md-8 mb-margin-bottom-30">
                 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 				<div class="row margin-bottom-30">
-					<div class="col-md-4 md-margin-bottom-20">
+					<div class="col-md-8 md-margin-bottom-20">
 						<h3>Lubbock Area Office</h3>
 						<ul class="list-unstyled who">
 							<li><a href="#"><i class="fa fa-home"></i>21103 FM 179, Wolfforth Texas 79382</a></li>
@@ -30,6 +30,8 @@
 							<li><a href="#"><i class="fa fa-phone"></i>806-863-2629</a></li>
 						</ul>
 					</div>
+				</div>
+				<div class="row margin-bottom-30">
 					<div class="col-md-8 md-margin-bottom-20">
 						<div style="overflow:hidden;height:300px;width:600px;">
 							<div id="gmap_canvas_lubbock" style="height:300px;width:600px;"></div>
@@ -40,7 +42,7 @@
 				</div>
 
 				 <div class="row margin-bottom-30">
-					<div class="col-md-4 md-margin-bottom-20">
+					<div class="col-md-8 md-margin-bottom-20">
 						<h3>Amarillo Area Office</h3>
 					    <ul class="list-unstyled who">
 					        <li><a href="#"><i class="fa fa-home"></i>7210 W. I-40 Suite 119, Amarillo Texas 79106</a></li>
@@ -48,6 +50,8 @@
 					        <li><a href="#"><i class="fa fa-phone"></i>806-353-7588</a></li>
 					    </ul>
 					</div>
+				</div>
+				<div class="row margin-bottom-30">
 					<div class="col-md-8 md-margin-bottom-20">
 						<div style="overflow:hidden;height:300px;width:600px;">
 						<div id="gmap_canvas_amarillo" style="height:300px;width:600px;"></div>
@@ -56,36 +60,17 @@
 						<script type="text/javascript"> function init_map_amarillo(){var myOptions = {zoom:14,center:new google.maps.LatLng(33.55783040000001,-101.99178059999997),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas_amarillo"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(33.55783040000001, -101.99178059999997)});infowindow = new google.maps.InfoWindow({content:"<b>Grimes &amp; Associates - Amarillo Area Office</b><br/>7210 W. I-40, Suite 119<br/> Amarillo, TX" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map_amarillo);</script>
 					</div>
 				</div>
-			</div>			                
-                
-                
-			<div class="row">
-                <form class="col-md-8 col-md-offset-2">
-                    <label>Name</label>
-                    <div class="row margin-bottom-20">
-                        <div class="col-md-7 col-md-offset-0">
-                            <input type="text" class="form-control">
-                        </div>                
-                    </div>
-                    
-                    <label>Email <span class="color-red">*</span></label>
-                    <div class="row margin-bottom-20">
-                        <div class="col-md-7 col-md-offset-0">
-                            <input type="text" class="form-control">
-                        </div>                
-                    </div>
-                    
-                    <label>Message</label>
-                    <div class="row margin-bottom-20">
-                        <div class="col-md-11 col-md-offset-0">
-                            <textarea rows="8" class="form-control"></textarea>
-                        </div>                
-                    </div>
-                    
-                    <p><button type="submit" class="btn-u">Send Message</button></p>
-                </form>
-            </div>
-            
-        </div><!--/row-->        
+			</div>
+			<div class="col-md-4">
+				{% for message in messages %}
+					<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+				{% endfor %}
+				<form method="post">
+					{% csrf_token %}
+					{{ contact_form.as_p }}
+					<p><button type="submit" class="btn-u">Send Message</button></p>
+				</form>
+			</div>
+        </div>        
     </div>
 {% endblock content %}
