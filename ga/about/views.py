@@ -22,7 +22,7 @@ def index(request):
 def team(request):
     context = {
         'nav_selected': 'about',
-        'staff': Staff.objects.select_related('department').filter(active=True).order_by('department')
+        'staff': Staff.objects.select_related('department').filter(active=True).order_by('department', 'sort')
     }
     return render_to_response(
         template_name = 'team.html',
