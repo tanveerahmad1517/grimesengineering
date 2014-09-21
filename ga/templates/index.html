@@ -1,16 +1,25 @@
 {% extends 'base.html' %}
 
+{% block inline-css %}
+	<style>
+		.da-slide p {
+			max-width:300px;
+			top: 250px;
+		}
+		.da-slide p i{
+			padding:5px;
+			line-height:40px;
+		}
+		
+	</style>
+{% endblock inline-css %}
+
 {% block content %}
 	<div class="slider-inner">
 		<div id="da-slider" class="da-slider">
 			<div class="da-slide">
-				<h2><i>CLEAN &amp; FRESH</i> <br /> <i>FULLY RESPONSIVE</i> <br /> <i>DESIGN</i></h2>
-				<p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
-				<div class="da-img"><img class="img-responsive" src="{{ STATIC_URL }}plugins/parallax-slider/img/1.png" alt=""></div>
-			</div>
-			<div class="da-slide">
-				<h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
-				<p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i></p>
+				<h2><i>WELCOME TO</i> <br /> <i>GRIMES &amp; ASSOCIATES</i></h2>
+				<p><i style="max-width:300px;">Your source for engineering, architectural, and environmental services</i></p>
 				<div class="da-img">
 					<video width="534" height="300" poster="{{ STATIC_URL }}video/welcome_preview.jpg" controls>
 						<source src="{{ STATIC_URL }}video/welcome.mp4" type="video/mp4">
@@ -18,13 +27,31 @@
 					</video>  
 				</div>
 			</div>
+			
 			<div class="da-slide">
-				<h2><i>USING BEST WEB</i> <br /> <i>SOLUTIONS WITH</i> <br /> <i>HTML5/CSS3</i></h2>
-				<p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+				<h2><i>ENGINEERING</i> <br /> <i>SERVICES</i></h2>
+				<p><i>Specializing in schools and public buildings</i></p>
 				<div class="da-img">
-					<img src="{{ STATIC_URL }}plugins/parallax-slider/img/html5andcss3.png" alt="image01" />
+					<img src="{{ STATIC_URL }}img/grady_gym.jpg" class="img-responsive" />
 				</div>
 			</div>
+			
+			<div class="da-slide">
+				<h2><i>ARCHITECTURAL</i> <br /> <i>SERVICES</i></h2>
+				<p><i>Full architectural services from our experienced team</i></p>
+				<div class="da-img">
+					<img src="{{ STATIC_URL }}img/retail.jpg" class="img-responsive" />
+				</div>
+			</div>
+			
+			<div class="da-slide">
+				<h2><i>ENVIRONMENTAL</i> <br /> <i>SERVICES</i></h2>
+				<p><i>West Texas Leading Asbestos, Lead-based Paint, LPST testing and remediation firm</i></p>
+				<div class="da-img">
+					<img src="{{ STATIC_URL }}img/enviro.jpg" class="img-responsive" />
+				</div>
+			</div>
+			
 			<div class="da-arrows">
 				<span class="da-arrows-prev"></span>
 				<span class="da-arrows-next"></span>		
