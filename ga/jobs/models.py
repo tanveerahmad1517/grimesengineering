@@ -1,27 +1,11 @@
-from django.db import connection, models
+from django.db import models
 from ga.jobs.util import STATE_CHOICES
 from ga.services.models import Department
 from ga.about.models import Staff
-from ga import settings
-import os
 from django.template.defaultfilters import slugify
-
-def prefetch_id(instance):
-    """ Fetch the next value in a django id autofield postgresql sequence """
-    cursor = connection.cursor()
-    cursor.execute(
-        "SELECT nextval('{0}_{1}_id_seq'::regclass)".format(
-            instance._meta.app_label.lower(),
-            instance._meta.object_name.lower(),
-        )
-    )
-    row = cursor.fetchone()
-    cursor.close()
-    return int(row[0])
-
-def upload_path(instance, filename):
-    unused, extension = os.path.splitext(filename)
-    return '/'.join([settings.MEDIA_ROOT, instance.__class__.__name__, ("%s%s" % (instance.id, extension))])
+from ga.functions import upload_path, prefetch_id
+import os
+from django.core.urlresolvers import reverse
 
 class JobStatus(models.Model):
     name = models.CharField(max_length=100)
@@ -30,7 +14,7 @@ class JobStatus(models.Model):
         return self.name
 
 class Job(models.Model):
-    number = models.CharField(max_length=100)
+    number = models.FloatField(unique=True)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True,)
     status = models.ForeignKey(to=JobStatus)
@@ -40,20 +24,36 @@ class Job(models.Model):
     display = models.BooleanField(default=False)
     department = models.ForeignKey(to=Department, null=True,)
     staff = models.ForeignKey(to=Staff, null=True, blank=True,)
-    image = models.ImageField(null=True, blank=True, upload_to = upload_path)
+#     image = models.ImageField(null=True, blank=True, upload_to = upload_path)
 #     thumb = ImageSpecField(
 #         source='image',
 #         processors=[ResizeToFit(250, 250)],
 #         format='JPEG',
 #         options={'quality': 60},
 #     )
-    
+
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.number)
 
     @property
     def slug(self):
         return slugify(self.name)
+    
+    @property
+    def url(self):
+        return reverse(
+            'job:detail', 
+            kwargs = {
+                'job_id': self.id, 
+                'job_slug': self.slug,
+            }
+        )
+    
+    @property
+    def main_image(self):
+        for img in self.images.all()[:1]:
+            return img.image
+        return None
 
 class JobImage(models.Model):
     job = models.ForeignKey(to=Job, related_name='images')
@@ -70,7 +70,6 @@ class JobImage(models.Model):
     def save(self, *args, **kwargs):
         if not self.id and self.image:
             self.id = prefetch_id(self)
-
         super(JobImage, self).save(*args, **kwargs)
 
 class JobDocumentManager(models.Manager):
@@ -120,3 +119,10 @@ class DownloadUser(models.Model):
 class Download(models.Model):
     jobdocument = models.ForeignKey(to=JobDocument)
     downloaduser = models.ForeignKey(to=DownloadUser)
+    
+class LegacyImages(models.Model):
+    image_name = models.CharField(max_length=100)
+    caption = models.CharField(max_length=300)
+    image_date = models.DateField()
+    jobid = models.FloatField()
+    inserted = models.BooleanField()

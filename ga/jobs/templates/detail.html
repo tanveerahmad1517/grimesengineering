@@ -22,13 +22,21 @@
     </div>
 
     <div class="container content">
-    	<div>
-	    	{{ job.description }}<br />
-			Job Number: {{ job.number }}<br />
-			{% if job.staff and job.staff.active %}
-				<a href="{{ job.staff.email|obfuscate_mailto }}">{{ job.staff.name }}</a>
-			{% endif %}
+    	<div class="row">
+    		<div class="col-md-8">
+	    		<div>{{ job.description }}</div>
+				{% if job.staff and job.staff.active %}
+					<div class="pull-left">
+						{{ job.staff.name }}<br/>
+						{{ job.staff.email|obfuscate_mailto }}
+					</div>
+				{% endif %}
+    		</div>
+    		<div class="col-md-4" style="text-align:right;">
+    			Job Number: {{ job.number }}
+    		</div>
 		</div>
+		<div class="clearfix"></div>
 		
 		{# JOB DOCUMENTS #}
 		{% if job.documents.all %}
@@ -70,25 +78,43 @@
 					{% endif %}
 				</div>
 			</div>
+			<div class="clearfix"></div>
 		{% endif %}
 		
 		{# JOB IMAGES #}
-        <div class="sorting-block">
-			{% if job.images %}
+		{% if job.images %}
+			<div class="sorting-block" style="margin-top:30px;">
+				<h3>{{ job.name }} Images</h3>
 			     <ul class="row sorting-grid">
 			     	{% for image in job.images.all %}
 			          <li class="col-md-3 col-sm-6 col-xs-12">
-			              <a href="#">
-			                  <img class="img-responsive" src="{{ MEDIA_URL }}{{ image.image }}" alt="">
-			                  <span class="sorting-cover">
-			                 		{% if image.description %}{{ image.description }}{% endif %}
+			              <div class="jobimg" style="cursor:pointer;">
+			                  <img class="img-responsive" src="{{ MEDIA_URL }}{{ image.image }}" data-large="{{image.image}}" alt="">
+			                  <span class="sorting-cover" style="height:55px;">
+			                 		{% if image.description %}{{ image.description|truncatechars:70 }}{% endif %}
 			                  </span>
-			              </a>
+			              </div>
 			          </li>
 			      {% endfor %}
 			     </ul>
-			{% endif %}
-            <div class="clearfix"></div>
-        </div>
+			 </div>
+			 <div class="clearfix"></div>
+			 
+			{# MODAL #}
+			<div class="modal fade" id="imageModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+			      		<div class="modal-body">
+			      			<img src="" alt="" class="img-responsive" style="margin:0 auto;">
+			      		</div>
+			      		<div class="modal-footer">
+							<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+						</div>
+			      	</div>
+				</div>
+			</div>
+			 
+		{% endif %}
     </div>
+    
 {% endblock content %}

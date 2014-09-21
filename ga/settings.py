@@ -21,6 +21,11 @@ MEMBER_PASSWORD = os.environ.get('MEMBER_PASSWORD')
 # heroku config:add SECRET_KEY=my-secret-password
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+## heroku config:add AWS_ACCESS_KEY_ID=my-secret-password
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+## heroku config:add AWS_SECRET_ACCESS_KEY=my-secret-password
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 ## OVERRIDE ABOVE HEROKU VALUES WITH CONSTANTS FROM local_settings.py FOR LOCAL DEVELOPMENT
 try:
     from local_settings import *  # @UnusedWildImport
@@ -127,10 +132,6 @@ STATICFILES_DIRS = (
 #===============================================================================
 AWS_STORAGE_BUCKET_NAME = "grimes.media"
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-## heroku config:add AWS_ACCESS_KEY_ID=my-secret-password
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-## heroku config:add AWS_SECRET_ACCESS_KEY=my-secret-password
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 # Imagekit to use s3 backend
 IMAGEKIT_DEFAULT_IMAGE_CACHE_BACKEND = 'imagekit.imagecache.NonValidatingImageCacheBackend'

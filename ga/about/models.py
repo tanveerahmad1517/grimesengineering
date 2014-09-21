@@ -1,9 +1,9 @@
 from django.db import models
-from ga import settings
 
-from imagekit.models import ImageSpecField
-from pilkit.processors import ResizeToFit
+# from imagekit.models import ImageSpecField
+# from pilkit.processors import ResizeToFit
 from ga.services.models import Department
+from ga.functions import upload_path, prefetch_id
 
 class LicenseCategory(models.Model):
     name = models.CharField(max_length=100)
@@ -39,13 +39,17 @@ class Staff(models.Model):
     department = models.ForeignKey(to=Department, null=True, blank=True,)
     active = models.BooleanField(default=True)
     sort = models.IntegerField(default=10, null=True,)
-    image = models.ImageField(null=True, blank=True, upload_to = settings.MEDIA_ROOT)
-    thumb = ImageSpecField(
-        source='image',
-        processors=[ResizeToFit(250, 250)],
-        format='JPEG',
-        options={'quality': 60},
-    )
+    image = models.ImageField(null=True, blank=True, upload_to = upload_path)
+#     thumb = ImageSpecField(
+#         source='image',
+#         processors=[ResizeToFit(250, 250)],
+#         format='JPEG',
+#         options={'quality': 60},
+#     )
+    def save(self, *args, **kwargs):
+        if not self.id and self.image:
+            self.id = prefetch_id(self)
+        super(Staff, self).save(*args, **kwargs)
     
     class Meta:
         verbose_name_plural = "Staff"

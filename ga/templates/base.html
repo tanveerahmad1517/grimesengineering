@@ -215,9 +215,14 @@
     	            alert(data);
     	        },
     	        failure: function(data) { 
-    	            alert('Got an error dude');
+    	            alert('Error');
     	        }
     	    });    		
+    	});
+    	
+    	$(document).on('click', '.jobimg img', function(){
+    		$('#imageModal img').attr('src', '{{MEDIA_URL }}' + $(this).data('large'));
+    		$('#imageModal').modal('show');
     	})
     </script>
 

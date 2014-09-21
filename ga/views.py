@@ -14,10 +14,9 @@ from django.contrib import messages
 # @cache_page(60 * 15)
 def index(request):
     
-    recent_jobs = Job.objects.filter(
+    recent_jobs = Job.objects.select_related('images').filter(
         status__name='Completed', 
         display=True, 
-        image__isnull = False
     ).order_by('-date')[:4]
     
     departments = Department.objects.filter(

@@ -21,7 +21,8 @@ def services(request, department_id, department_slug):
         return HttpResponseRedirect('/')
     
     if not department.slug == department_slug:
-        return HttpResponseRedirect(reverse('services:department', kwargs={'department_id':department.id, 'department_slug':department.slug}))
+        return HttpResponseRedirect(
+            reverse('services:department', kwargs={'department_id':department.id, 'department_slug':department.slug}))
     context = {
         'nav_selected': 'services',
         'department': department,
