@@ -23,8 +23,8 @@
 	        <div class="row service-v1 margin-bottom-40">
 	        	{% for job in jobs %}
 		            <div class="col-md-4 md-margin-bottom-40">
-		            	{% if job.image %}
-		                	<img class="img-responsive" src="{{ MEDIA_URL}}{{ job.image }}" alt="">
+		            	{% if job.main_image %}
+		                	<img class="img-responsive" src="{{ MEDIA_URL}}{{ job.main_image }}" alt="">
 		                {% else %}
 		                	{# put default image here #}
 		                {% endif %}   
