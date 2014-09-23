@@ -4,7 +4,9 @@ from django.contrib.auth.models import Group
 admin.site.unregister(Group)
 
 class StaffAdmin(admin.ModelAdmin):
-    pass
+    def queryset(self, request):
+        qs = super(StaffAdmin, self).queryset(request)
+        return qs.filter(active=True).order_by('sort')
 from ga.about.models import Staff
 admin.site.register(Staff, StaffAdmin)
 

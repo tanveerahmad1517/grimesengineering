@@ -15,7 +15,7 @@ def detail(request, job_id, job_slug):
     
     try:
         job = Job.objects.prefetch_related(
-            'images', 'documents'
+            'documents'
         ).select_related(
             'staff', 'department'
         ).get(pk=job_id)
@@ -46,10 +46,11 @@ def detail(request, job_id, job_slug):
                     )
             else:
                 login_form = LoginForm()
-    
+                
     context = {
         'nav_selected': 'services',
         'job': job,
+        'job_images': job.images.all().order_by('date'),
         'login_form': login_form,
         'logged_in': logged_in,
     }

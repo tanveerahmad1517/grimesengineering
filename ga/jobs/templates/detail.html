@@ -82,11 +82,11 @@
 		{% endif %}
 		
 		{# JOB IMAGES #}
-		{% if job.images %}
+		{% if job_images %}
 			<div class="sorting-block" style="margin-top:30px;">
 				<h3>{{ job.name }} Images</h3>
 			     <ul class="row sorting-grid">
-			     	{% for image in job.images.all %}
+			     	{% for image in job_images %}
 			          <li class="col-md-3 col-sm-6 col-xs-12">
 			              <div class="jobimg" style="cursor:pointer;">
 			                  <img class="img-responsive" src="{{ MEDIA_URL }}{{ image.image }}" data-large="{{image.image}}" alt="">
