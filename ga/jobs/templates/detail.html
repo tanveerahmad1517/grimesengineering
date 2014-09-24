@@ -62,17 +62,15 @@
 					{% else %}
 						<ul>
 							{% for document in job.documents.all %}
-								{% if document.type == job.status %}
-									<li>
-										<a class="download_document" data-document="{{ document.id }}" href="{{ MEDIA_URL }}{{ document.document }}">
-											{% if document.description %}
-												{{ document.description }}
-											{% else %}
-												{{ document.filename }}
-											{% endif %}
-										</a>
-									</li>
-								{% endif %}
+								<li>
+									<a class="download_document" data-document="{{ document.id }}" href="{{ MEDIA_URL }}{{ document.document }}">
+										{% if document.description %}
+											{{ document.description }}
+										{% else %}
+											{{ document.filename }}
+										{% endif %}
+									</a>
+								</li>
 							{% endfor %}
 						</ul>
 					{% endif %}

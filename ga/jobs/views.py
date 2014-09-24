@@ -72,6 +72,7 @@ def log_download(request):
     if document_id:
         try:
             jobdocument = JobDocument.objects.get(pk=document_id)
+            print request.session.get('download_user')
             download_user = DownloadUser.objects.get(pk=request.session.get('download_user'))
             Download.objects.get_or_create(jobdocument = jobdocument, downloaduser = download_user)
             response_data['result'] = 'success'

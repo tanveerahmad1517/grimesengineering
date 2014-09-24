@@ -65,7 +65,7 @@ class JobImage(models.Model):
 #         options={'quality': 60},
 #     )
     description = models.CharField(max_length=200, null=True, blank=True)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField()#auto_now_add=True)
 
     class Meta:
         ordering = ["date"]
@@ -84,14 +84,12 @@ class JobDocumentManager(models.Manager):
     def available_documents(self):
         jobs = []
         for item in self.select_related('job').filter(job__id__isnull=False):
-            if item.job.status == item.type:
-                jobs.append(item.job)
+            jobs.append(item.job)
         return jobs
 
 class JobDocument(models.Model):
     job = models.ForeignKey(to=Job, related_name='documents')
     document = models.FileField(upload_to = upload_path)
-    type = models.ForeignKey(to=JobStatus)
     description = models.CharField(max_length=200, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
 
@@ -119,7 +117,6 @@ class Client(models.Model):
 class DownloadUser(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    job = models.ForeignKey(to=Job, null=True)
     
 class Download(models.Model):
     jobdocument = models.ForeignKey(to=JobDocument)
