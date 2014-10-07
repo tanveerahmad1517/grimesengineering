@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from ga.forms import ContactForm
 from ga.services.models import Department
 from django.contrib import messages
+from ga.functions import postmark_email
 
 
 #===============================================================================
@@ -46,7 +47,7 @@ def clientlist(request):
     context = {
         'nav_selected': 'clients',
         'clients': clients,
-        'description': 'Grimes & Associates has served thousands of clients in our 40 year history.'
+        'description': 'Grimes & Associates has served thousands of clients in our 30 year history.'
     }
     return render_to_response(
         template_name = 'clientlist.html',
@@ -72,8 +73,8 @@ class Contact(TemplateView):
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             msg = form.cleaned_data['message']
-            ## SEND AN EMAIL TO THE MEMBERSHIP DIRECTOR rwchamp1
-#             postmark_email('SMC - New Member Signup', 'rwchamp1@gmail.com', new_member.full_info(cr='\n'), 'new member')
+            message = 'Name: %s\nEmail: %s\nMessage:\n%s' % (name, email, msg)
+            postmark_email('Message from G&A website', 'grimes@grimesengineering.com', message, 'contact_email')
             messages.success(request, 'Your message has been sent')
 
         return render(request, self.template_name, context)

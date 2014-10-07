@@ -11,7 +11,7 @@ class DepartmentManager(models.Manager):
     def tree(self):
         tree = []
         for parent in self.filter(parent_id__isnull=True, navigation_display=True).order_by('sort').values():
-            parent['leaves'] = self.filter(parent_id=parent['id']).order_by('sort').values()
+            parent['leaves'] = self.filter(parent_id=parent['id'], navigation_display=True).order_by('sort').values()
             tree.append(parent)
         return tree
 

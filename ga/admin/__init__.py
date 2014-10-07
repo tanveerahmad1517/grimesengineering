@@ -10,6 +10,11 @@ class StaffAdmin(admin.ModelAdmin):
 from ga.about.models import Staff
 admin.site.register(Staff, StaffAdmin)
 
+class LicenseNameAdmin(admin.ModelAdmin):
+    pass
+from ga.about.models import LicenseName
+admin.site.register(LicenseName, LicenseNameAdmin)
+
 class LicenseAdmin(admin.ModelAdmin):
     pass
 from ga.about.models import License

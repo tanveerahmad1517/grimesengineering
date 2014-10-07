@@ -12,12 +12,18 @@
 			<div class="row margin-bottom-20">
 				<div class="col-sm-2">
 					{% if member.image %}
-						<img alt="" src="{{ MEDIA_URL }}{{ member.image }}" class="img-responsive">
+						<img style="margin-top:10px;" alt="" src="{{ MEDIA_URL }}{{ member.image }}" class="img-responsive">
 					{% endif %}
 				</div>
 				<div class="col-sm-10">
                     <h3><a>{{ member.name }}</a><br /><small>{{ member.title }}</small></h3>
                     <p>{{ member.description }}</p>
+                    <p>
+	                    {% for license in member.license.all %}
+	                    	{{ license }}<br/>
+	                    {% endfor %}
+	                </p>
+                    
                     {{ member.email|obfuscate_mailto }}<br />
                     {% if member.phone %}
                     	Office: {{ member.phone }}<br />

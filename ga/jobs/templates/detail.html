@@ -63,7 +63,7 @@
 						<ul>
 							{% for document in job.documents.all %}
 								<li>
-									<a class="download_document" data-document="{{ document.id }}" href="{{ MEDIA_URL }}{{ document.document }}">
+									<a class="download_document" target="_blank" data-document="{{ document.id }}" href="{{ MEDIA_URL }}{{ document.document }}">
 										{% if document.description %}
 											{{ document.description }}
 										{% else %}

@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from ga.functions import upload_path, prefetch_id
 import os
 from django.core.urlresolvers import reverse
+from base64 import b64encode
 
 class JobStatus(models.Model):
     name = models.CharField(max_length=100)
@@ -84,7 +85,8 @@ class JobDocumentManager(models.Manager):
     def available_documents(self):
         jobs = []
         for item in self.select_related('job').filter(job__id__isnull=False):
-            jobs.append(item.job)
+            if item.job not in jobs:
+                jobs.append(item.job)
         return jobs
 
 class JobDocument(models.Model):
@@ -99,6 +101,32 @@ class JobDocument(models.Model):
     def save(self, *args, **kwargs):
         if not self.id and self.document:
             self.id = prefetch_id(self)
+
+            email_list = []
+            for entry in Download.objects.filter(jobdocument__job = self.job):
+                if entry.downloaduser.email not in email_list:
+                    email_list.append(entry.downloaduser.email)
+                    
+            message = "A new document has been uploaded for job: %(job_title)s. This new document is available to download from www.grimesengineering.com and is attached to this email." % {
+                'job_title': self.job.name
+            }
+            attachment = {
+                "Name": self.document.name,
+                "Content": b64encode(self.document.file.read()),
+                "ContentType": self.document.file.content_type,
+            }
+            from postmark import PMMail
+            message = PMMail(
+                 api_key = os.environ.get('POSTMARK_API_KEY'),
+                 subject = "Grimes & Associates New Document Uploaded",
+                 sender = "grimes@grimesengineering.com",
+                 cc = ','.join(email_list),
+                 to = "grimes@grimesengineering.com",
+                 text_body = message,
+                 tag = "new document",
+                 attachments = [attachment,]
+            )
+            message.send()
 
         super(JobDocument, self).save(*args, **kwargs)
 
