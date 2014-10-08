@@ -32,7 +32,7 @@ class Staff(models.Model):
     name = models.CharField(max_length=200)
     email = models.CharField(max_length=200, null=True, blank=True,)
     title = models.CharField(max_length=500, null=True, blank=True,)
-    license = models.ManyToManyField(License, null=True, blank=True,)
+    license = models.ManyToManyField(License, null=True, blank=True, related_name="staff")
     description = models.TextField(null=True, blank=True,)
     phone = models.CharField(max_length=100, null=True, blank=True,)
     cell = models.CharField(max_length=100, null=True, blank=True,)
