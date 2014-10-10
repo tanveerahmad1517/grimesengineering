@@ -26,6 +26,14 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 ## heroku config:add AWS_SECRET_ACCESS_KEY=my-secret-password
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+USE_TZ = False
+TEMPLATE_DEBUG = False
+
+ALLOWED_HOSTS = ['grimesengineering.herokuapp.com', 'www.grimesengineering.com']
+
+
 ## OVERRIDE ABOVE HEROKU VALUES WITH CONSTANTS FROM local_settings.py FOR LOCAL DEVELOPMENT
 try:
     from local_settings import *  # @UnusedWildImport
@@ -41,14 +49,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # heroku config:add MEMBER_PASSWORD=my-secret-password
 MEMBER_PASSWORD = os.environ.get('MEMBER_PASSWORD')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-USE_TZ = False
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 

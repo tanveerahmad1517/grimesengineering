@@ -66,7 +66,7 @@ class JobImage(models.Model):
 #         options={'quality': 60},
 #     )
     description = models.CharField(max_length=200, null=True, blank=True)
-    date = models.DateTimeField()#auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["date"]
