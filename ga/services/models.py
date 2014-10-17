@@ -14,7 +14,7 @@ class DepartmentManager(models.Manager):
             parent['leaves'] = self.filter(parent_id=parent['id'], navigation_display=True).order_by('sort').values()
             tree.append(parent)
         return tree
-
+    
 class Department(models.Model):
     name = models.CharField(max_length=100)
     parent_id = models.ForeignKey('self', null=True, blank=True)
@@ -31,9 +31,7 @@ class Department(models.Model):
     def icon(self):
         if self.name.lower() == 'environmental':
             return 'leaf'
-        if self.name.lower() == 'engineering':
-            return 'cogs'
-        if self.name.lower() == 'architecture':
+        if self.name.lower() == 'architecture & engineering':
             return 'university'
         return None
     
@@ -50,3 +48,6 @@ class Department(models.Model):
                 'department_slug': self.slug,
             }
         )
+        
+    def children(self):
+        return Department.objects.filter(parent_id = self.id, navigation_display=True).order_by('sort')

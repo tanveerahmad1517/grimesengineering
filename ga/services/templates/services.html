@@ -18,21 +18,33 @@
         	</div>
         </div>
         
+        {% if department.children.all %}
+        	<ul>
+		        {% for child in department.children.all %}
+		        	<li><h3><a href="{{child.url}}">{{child.name}}</a></h3>{{child.description|safe}}</li>
+		        {% endfor %}
+		    </ul>
+		{% endif %}
+        
         {% if jobs %}
 	        <h2>Completed Projects</h2>
 	        <div class="row service-v1 margin-bottom-40">
 	        	{% for job in jobs %}
-		            <div class="col-md-4 md-margin-bottom-40">
+		            <div class="col-md-4 md-margin-bottom-40" style="height:400px;overflow:hidden;">
 		            	{% if job.main_image %}
-		                	<img class="img-responsive" src="{{ MEDIA_URL}}{{ job.main_image }}" alt="">
-		                {% else %}
-		                	{# put default image here #}
+		            		<div class="thumbnails thumbnail-style" style="margin-bottom:0;">
+		            			<div class="thumbnail-img">
+		            				<div style="overflow-hidden;">
+				                		<img class="thumbnail-img img-responsive" src="{{ MEDIA_URL}}{{ job.main_image }}" alt="">
+				                	</div>
+				                	{% if job.images.all %}
+				                		<a class="btn-more hover-effect" href="{% url 'job:detail' job_id=job.id job_slug=job.slug %}">more images +</a>
+				                	{% endif %}
+				                </div>
+			                </div>
 		                {% endif %}   
-		                <h2>{{ job.name }}</h2>
+		                <h2 style="margin-top:0;">{{ job.name }}</h2>
 	                	<p>{{ job.description }}</p>
-	                	{% if job.images.all %}
-	                		<a href="{% url 'job:detail' job_id=job.id job_slug=job.slug %}">more images</a>
-	                	{% endif %}     
 		            </div>
 		        {% endfor %}
 	        </div>

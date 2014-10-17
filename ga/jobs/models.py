@@ -7,6 +7,7 @@ from ga.functions import upload_path, prefetch_id
 import os
 from django.core.urlresolvers import reverse
 from base64 import b64encode
+import datetime
 
 class JobStatus(models.Model):
     name = models.CharField(max_length=100)
@@ -19,7 +20,7 @@ class Job(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True,)
     status = models.ForeignKey(to=JobStatus)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=datetime.date.today())
     city = models.CharField(max_length=100, null=True, blank=True,)
     state = models.CharField(max_length=2, choices=STATE_CHOICES, null=True, blank=True,)
     display = models.BooleanField(default=False)
@@ -32,7 +33,9 @@ class Job(models.Model):
 #         format='JPEG',
 #         options={'quality': 60},
 #     )
-
+    class Meta:
+        ordering = ['-date']
+        
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.number)
 
