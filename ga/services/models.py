@@ -18,6 +18,7 @@ class DepartmentManager(models.Manager):
 class Department(models.Model):
     name = models.CharField(max_length=100)
     parent_id = models.ForeignKey('self', null=True, blank=True)
+    short_description = HTMLField(null=True, blank=True)
     description = HTMLField(null=True, blank=True)
     navigation_display = models.BooleanField(default=False)
     sort = models.IntegerField()

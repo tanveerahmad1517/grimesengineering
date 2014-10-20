@@ -20,6 +20,10 @@ def services(request, department_id, department_slug):
     except Department.DoesNotExist:
         return HttpResponseRedirect('/')
     
+    for item in jobs:
+        print item
+    
+    
     if not department.slug == department_slug:
         return HttpResponseRedirect(
             reverse('services:department', kwargs={'department_id':department.id, 'department_slug':department.slug}))

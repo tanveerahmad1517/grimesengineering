@@ -70,7 +70,7 @@
 							<i class="fa fa-{{department.icon}} service-icon"></i>
 							<div class="desc">
 								<h4>{{ department.name }}</h4>
-					  			<p>{{ department.description|safe }}</p>
+					  			<p>{{ department.brief_description|safe }}</p>
 							</div>
 						</a>
 					</div>	
@@ -85,7 +85,7 @@
 					<div class="col-md-3 col-sm-6">
 						<div class="thumbnails thumbnail-style thumbnail-kenburn">
 							<div class="thumbnail-img">
-								<div class="overflow-hidden">
+								<div class="overflow-hidden" style="max-height:175px;">
 									<img class="img-responsive" src="{{ MEDIA_URL }}{{ job.main_image }}" alt="">
 								</div>
 								<a class="btn-more hover-effect" href="{{ job.url }}">read more +</a>					
