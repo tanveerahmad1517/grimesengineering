@@ -29,7 +29,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 POSTMARK_API_KEY = os.environ.get('POSTMARK_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 USE_TZ = False
 TEMPLATE_DEBUG = False
 
