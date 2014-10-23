@@ -24,7 +24,7 @@ def upload_path(instance, filename):
 def postmark_email(subject, to_address, body, tag):
     from postmark import PMMail
     message = PMMail(
-         api_key = os.environ.get('POSTMARK_API_KEY'),
+         api_key = settings.POSTMARK_API_KEY,
          subject = subject,
          sender = "grimes@grimesengineering.com",
          bcc = "dillon.grimes@gmail.com",

@@ -8,6 +8,7 @@ import os
 from django.core.urlresolvers import reverse
 from base64 import b64encode
 import datetime
+from ga import settings
 
 class JobStatus(models.Model):
     name = models.CharField(max_length=100)
@@ -120,7 +121,7 @@ class JobDocument(models.Model):
             }
             from postmark import PMMail
             message = PMMail(
-                 api_key = os.environ.get('POSTMARK_API_KEY'),
+                 api_key = settings.POSTMARK_API_KEY,
                  subject = "Grimes & Associates New Document Uploaded",
                  sender = "grimes@grimesengineering.com",
                  cc = ','.join(email_list),

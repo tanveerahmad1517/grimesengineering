@@ -26,8 +26,10 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 ## heroku config:add AWS_SECRET_ACCESS_KEY=my-secret-password
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
+POSTMARK_API_KEY = os.environ.get('POSTMARK_API_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 USE_TZ = False
 TEMPLATE_DEBUG = False
 
