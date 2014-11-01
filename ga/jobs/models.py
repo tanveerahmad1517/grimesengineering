@@ -111,13 +111,9 @@ class JobDocument(models.Model):
                 if entry.downloaduser.email not in email_list:
                     email_list.append(entry.downloaduser.email)
                     
-            message = "A new document has been uploaded for job: %(job_title)s. This new document is available to download from www.grimesengineering.com and is attached to this email." % {
-                'job_title': self.job.name
-            }
-            attachment = {
-                "Name": self.document.name,
-                "Content": b64encode(self.document.file.read()),
-                "ContentType": self.document.file.content_type,
+            message = "A new document has been uploaded for job: %(job_title)s. This new document is available to download from http://www.grimesengineering.com/%(job_url)s." % {
+                'job_url': self.job.url,
+                'job_title': self.job.name,
             }
             from postmark import PMMail
             message = PMMail(
@@ -128,7 +124,6 @@ class JobDocument(models.Model):
                  to = "grimes@grimesengineering.com",
                  text_body = message,
                  tag = "new document",
-                 attachments = [attachment,]
             )
             message.send()
 
