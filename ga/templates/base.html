@@ -225,12 +225,6 @@
     	$('.download_document').click(function(){
     	    $.ajax({
     	        url: "{% url 'job:log_download' %}?doc=" + $(this).data('document'),
-    	        success: function(data) {
-    	            alert(data);
-    	        },
-    	        failure: function(data) { 
-    	            alert('Error');
-    	        }
     	    });    		
     	});
     	
