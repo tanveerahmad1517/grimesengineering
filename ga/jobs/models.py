@@ -111,7 +111,7 @@ class JobDocument(models.Model):
                 if entry.downloaduser.email not in email_list:
                     email_list.append(entry.downloaduser.email)
                     
-            message = "A new document has been uploaded for job: %(job_title)s. This new document is available to download from http://www.grimesengineering.com%(job_url)s." % {
+            message = "A new document has been uploaded for job: %(job_title)s. This new document is available to download from http://www.grimesengineering.com%(job_url)s" % {
                 'job_url': self.job.url,
                 'job_title': self.job.name,
             }
