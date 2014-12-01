@@ -41,7 +41,7 @@ class JobImageInline(admin.TabularInline):
     extra = 0
 
 class JobAdmin(admin.ModelAdmin):
-    fields = ('number', 'name', 'status', 'display', 'is_featured',)
+    list_display = ('number', 'name', 'status', 'display', 'is_featured',)
     inlines = (JobImageInline, JobDocumentInline,)
 from ga.jobs.models import Job
 admin.site.register(Job, JobAdmin)
