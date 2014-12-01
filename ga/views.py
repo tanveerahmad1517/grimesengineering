@@ -16,8 +16,6 @@ from ga.functions import postmark_email
 def index(request):
     
     recent_jobs = Job.objects.select_related('images').filter(
-        status__name='Completed', 
-        display=True, 
         is_featured=True,
     ).order_by('-date')[:4]
     
