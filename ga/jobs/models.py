@@ -25,6 +25,7 @@ class Job(models.Model):
     city = models.CharField(max_length=100, null=True, blank=True,)
     state = models.CharField(max_length=2, choices=STATE_CHOICES, null=True, blank=True,)
     display = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
     department = models.ForeignKey(to=Department, null=True,)
     staff = models.ForeignKey(to=Staff, null=True, blank=True,)
 #     image = models.ImageField(null=True, blank=True, upload_to = upload_path)

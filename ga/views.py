@@ -18,7 +18,8 @@ def index(request):
     recent_jobs = Job.objects.select_related('images').filter(
         status__name='Completed', 
         display=True, 
-    )[:4]
+        featured=True,
+    ).order_by('-date')[:4]
     
     departments = Department.objects.filter(
         name__in = ['Environmental','Architecture & Engineering',]
