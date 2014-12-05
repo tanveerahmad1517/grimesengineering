@@ -21,7 +21,12 @@
 			font-size: 25px;
 			padding: 3px;
 		}
+		.da-slider {height: 400px;}
 		
+		.service {
+			margin-bottom: 0px;
+			padding: 10px 15px;
+		}
 	</style>
 {% endblock inline-css %}
 
@@ -67,9 +72,8 @@
 	</div>
 
 	<div class="container content">	
-		<div class="row margin-bottom-30">
+		<div class="row">
 			{% for department in departments %}
-		
 				<div class="col-md-5 col-md-offset-1">
 					<div class="service">
 						<a href="{{ department.url }}">
@@ -83,21 +87,6 @@
 				</div>
 			{% endfor %}
 		</div>
-
-		{% if AVAILABLE_DOCUMENTS %}
-			<div class="headline"><h2>Downloadable Documents</h2></div>
-			<div class="row margin-bottom-20">
-				{% for job in AVAILABLE_DOCUMENTS %}
-					<div class="col-md-12">
-						<a href="{% url 'job:detail' job_id=job.id job_slug=job.slug %}">
-							{% with job.documents.all|length as doc_count %}
-								{{ job.name }} - {% if doc_count = 1 %}1 document{% else %}{{ doc_count }} documents{% endif %}
-							{% endwith %}
-						</a>
-					</div>
-				{% endfor %}
-			</div>
-		{% endif %}
 
 		{% if recent_jobs %}
 			<div class="headline"><h2>Recent Projects</h2></div>
@@ -120,5 +109,21 @@
 				{% endfor %}
 			</div>
 		{% endif %}
+		
+		{% if AVAILABLE_DOCUMENTS %}
+			<div class="headline"><h2>Downloadable Documents</h2></div>
+			<div class="row margin-bottom-20">
+				{% for job in AVAILABLE_DOCUMENTS %}
+					<div class="col-md-12">
+						<a href="{% url 'job:detail' job_id=job.id job_slug=job.slug %}">
+							{% with job.documents.all|length as doc_count %}
+								{{ job.name }} - {% if doc_count = 1 %}1 document{% else %}{{ doc_count }} documents{% endif %}
+							{% endwith %}
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+		
 	</div>
 {% endblock content %}
