@@ -19,18 +19,22 @@
         </div>
         
         {% if department.children.all %}
-        	<ul>
-		        {% for child in department.children.all %}
-		        	<li>
-			        	<h3><a href="{{child.url}}">{{child.name}}</a></h3>
-			        	{{child.brief_description|safe}}
-		        	</li>
-		        {% endfor %}
-		    </ul>
+			<div class="well">
+	        	<h3>Departments</h3>
+	        	<ul>
+			        {% for child in department.children.all %}
+			        	<li>
+				        	<h3><a href="{{child.url}}">{{child.name}}</a></h3>
+				        	{{child.brief_description|safe}}
+			        	</li>
+			        {% endfor %}
+			    </ul>
+			</div>
 		{% endif %}
         
         {% if jobs %}
-	        <h2>Completed Projects</h2>
+	        <h2 style="color:#e74c3c;">Completed Projects</h2>
+	        <hr style="background-color:#e74c3c;height:1px;">
 	        <div class="row service-v1 margin-bottom-40">
 	        	{% for job in jobs %}
 		            <div class="col-md-4 md-margin-bottom-40" style="height:400px;overflow:hidden;">
