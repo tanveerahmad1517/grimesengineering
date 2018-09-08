@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['grimesengineering.herokuapp.com', 'www.grimesengineering.com']
 
 ## OVERRIDE ABOVE HEROKU VALUES WITH CONSTANTS FROM local_settings.py FOR LOCAL DEVELOPMENT
 try:
-    from local_settings import *  # @UnusedWildImport
+    from ga.local_settings import *  # @UnusedWildImport
 except ImportError:
     pass
 

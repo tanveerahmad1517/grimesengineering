@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+
+[packages]
+boto = "==2.32.1"
+dj-static = "==0.0.6"
+django-admin-bootstrapped = "==2.0.0"
+django-appconf = "==0.6"
+django-imagekit = "==3.2.2"
+django-storages = "==1.1.8"
+django-tinymce = "==1.5.2"
+gunicorn = "==19.1.1"
+pilkit = "==2.0"
+"psycopg2" = "==2.7.5"
+python-postmark = "==0.4.3"
+six = "==1.7.3"
+"static3" = "==0.5.1"
+Django = "==1.6.6"
+Pillow = "==5.2.0"
+dj-database-url = "*"
+
+[requires]
+python_version = "2.7"
